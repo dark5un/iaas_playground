@@ -1,2 +1,11 @@
-# iaas_playground
-Just me playing around with multiple iaas using go-cloud
+# IAAS Playground
+
+Just me playing around with multiple IAAS using go-cloud
+
+## Notes
+
+### Logging into GCP
+
+```shell
+gcloud init --console-only
+```
