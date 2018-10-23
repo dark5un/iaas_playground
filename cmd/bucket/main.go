@@ -7,18 +7,27 @@ import (
 	"github.com/urfave/cli"
 )
 
+var (
+	IAAS       string
+	BucketName string
+)
+
 func main() {
-	var (
-		iaas string
-	)
+
 	app := cli.NewApp()
 	app.Usage = "Multi IAAS bucket handling"
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:        "iaas",
-			Destination: &iaas,
+			Destination: &IAAS,
 			EnvVar:      "IAAS",
 			Usage:       "IAAS choice of [gcp, aws, azure]",
+		},
+		cli.StringFlag{
+			Name:        "name",
+			Destination: &BucketName,
+			EnvVar:      "BUCKET_NAME",
+			Usage:       "of the bucket",
 		},
 	}
 	app.Commands = []cli.Command{
@@ -44,6 +53,7 @@ func main() {
 			Action:      List,
 		},
 	}
+	app.Before = Before
 	err := app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
